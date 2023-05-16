@@ -7,12 +7,12 @@ const UsuarioSchema = Schema({
         type: String,
         required: [true, 'El nombre es obligatorio']
     },
-    email:{
+    email: {
         type: String,
         required: [true, 'El correo es obligatorio'],
         unique: true
     },
-    password:{
+    password: {
         type: String,
         required: [true, 'La contraseña es obligatoria']
     },
@@ -22,7 +22,7 @@ const UsuarioSchema = Schema({
     }
 })
 
-UsuarioSchema.method('toJSON', function(){
+UsuarioSchema.method('toJSON', function () {
     const { __v, _id, password, ...object } = this.toObject();
     object.uid = _id;
     return object;
