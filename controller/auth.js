@@ -3,8 +3,6 @@ const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
-
-
 // Crear usuario
 const crearUsuario = async (req, res = response) => {
 
@@ -104,7 +102,6 @@ const renewToken = async (req, res) => {
 
     res.json({
         ok: true,
-        // msg: 'Token Revalidado'
         usuario,
         token
     });
