@@ -30,12 +30,13 @@ class Server {
         this.app.use(express.static(path.resolve(__dirname, '../public')));
 
         // CORS
-        // this.app.use(cors()); 
+        this.app.use(cors()); 
+
+        // Lectura y parseo del body
+        this.app.use(express.json());
 
         // API endpoints
         this.app.use('/api/login', require('../router/auth'));
-
-
     }
 
     // Esta configuración se puede tener aquí o como propieda de clase
