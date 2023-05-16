@@ -16,10 +16,13 @@ const MensajeSchema = Schema({
         type: String,
         required: true
     },
-    timeStamps: true
+    timeStamps: {
+        type: Date,
+        default: Date.now
+    }
 })
 
-UsuarioSchema.method('toJSON', function () {
+MensajeSchema.method('toJSON', function () {
     const { __v, ...object } = this.toObject();
     return object;
 })
