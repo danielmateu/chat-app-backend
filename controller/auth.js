@@ -53,9 +53,9 @@ const login = async (req, res) => {
 
     try {
         const { email, password } = req.body;
-        const existeEmail = await Usuario.findOne({ email });
+        const usuarioDB = await Usuario.findOne({ email });
 
-        if (!existeEmail) {
+        if (!usuarioDB) {
             return res.status(400).json({
                 ok: false,
                 msg: 'El correo no existe'
@@ -63,7 +63,7 @@ const login = async (req, res) => {
         }
 
         // Confirmar los passwords
-        const validPassword = bcrypt.compareSync(password, existeEmail.password);
+        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
 
         if (!validPassword) {
             return res.status(400).json({
@@ -73,13 +73,11 @@ const login = async (req, res) => {
         }
 
         // Generar el JWT
-        const token = await generarJWT(existeEmail.id);
+        const token = await generarJWT(usuarioDB.id);
 
         res.json({
             ok: true,
-            msg: 'Login',
-            email,
-            password,
+            usuario: usuarioDB,
             token
 
         })
@@ -95,9 +93,20 @@ const login = async (req, res) => {
 
 // renewToken
 const renewToken = async (req, res) => {
+
+    const uid = req.uid;
+
+    // Generar el JWT
+    const token = await generarJWT(uid);
+
+    // Obtener el usuario por UID
+    const usuario = await Usuario.findById(uid);
+
     res.json({
         ok: true,
-        msg: 'Renew'
+        // msg: 'Token Revalidado'
+        usuario,
+        token
     });
 }
 
