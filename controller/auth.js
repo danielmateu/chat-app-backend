@@ -1,5 +1,5 @@
 const { response } = require('express');
-const Usuario = require('../models/Usuario');
+const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
@@ -18,8 +18,6 @@ const crearUsuario = async (req, res = response) => {
                 msg: 'El correo ya esta registrado'
             });
         }
-
-
         // Guardar usuario
         const usuario = new Usuario(req.body);
         // Encriptar contraseña
@@ -107,8 +105,11 @@ const renewToken = async (req, res) => {
     });
 }
 
+
+
 module.exports = {
     crearUsuario,
     login,
-    renewToken
+    renewToken,
+
 }

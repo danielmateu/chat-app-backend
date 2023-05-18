@@ -1,5 +1,5 @@
 
-
+const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const UsuarioSchema = Schema({
@@ -28,4 +28,4 @@ UsuarioSchema.method('toJSON', function () {
     return object;
 })
 
-module.exports = model('Usuario', UsuarioSchema);
+module.exports = mongoose.model('Usuario', UsuarioSchema);
