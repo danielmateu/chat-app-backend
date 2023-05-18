@@ -1,7 +1,8 @@
 
 
-const { usuarioConectado, usuarioDesconectado } = require('../controller/sockets');
+const { usuarioConectado, usuarioDesconectado, getUsuarios } = require('../controller/sockets');
 const { comprobarJWT } = require('../helpers/jwt');
+const usuario = require('./usuario');
 
 class Sockets {
 
@@ -25,9 +26,12 @@ class Sockets {
                 console.log('Cliente no autenticado');
                 return socket.disconnect()
             }
-            // console.log('Cliente conectado', uid);
-            await usuarioConectado(uid);
+
+            const usuario = await usuarioConectado(uid);
+            console.log('Cliente conectado: ', usuario.nombre);
+
             // TODO Emitir todos los usuarios conectados
+            this.io.emit('lista-usuarios', await getUsuarios());
 
 
             // TODO Socket join, uid
@@ -37,7 +41,8 @@ class Sockets {
             // TODO Disconnect
             socket.on('disconnect', async () => {
                 // console.log('Cliente desconectado', uid);
-                await usuarioDesconectado(uid);
+                const usuario = await usuarioDesconectado(uid);
+                console.log('Cliente desconectado: ', usuario.nombre);
             });
             // Marcar en la BD que el usuario se desconectó
             // TODO Emitir todos los usuarios conectados
