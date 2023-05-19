@@ -47,6 +47,8 @@ class Sockets {
                 const mensaje = await grabarMensaje(payload);
                 console.log(mensaje);
                 // TODO Emitir evento a la persona que se le envía el mensaje
+                this.io.to(payload.para).emit('mensaje-personal', mensaje);
+                this.io.to(payload.de).emit('mensaje-personal', mensaje);
             })
 
             // TODO Disconnect

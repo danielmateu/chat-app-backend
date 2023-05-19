@@ -33,7 +33,7 @@ const grabarMensaje = async (payload) => {
     try {
         const mensaje = new Mensaje(payload);
         await mensaje.save();
-        return true;
+        return mensaje;
 
     } catch (error) {
         console.log(error);
