@@ -1,8 +1,5 @@
 
-
 // Configuración de la base de datos
-
-
 // Path: database\config.js
 
 const mongoose = require('mongoose');
